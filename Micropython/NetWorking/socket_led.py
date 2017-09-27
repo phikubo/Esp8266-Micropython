@@ -14,7 +14,7 @@ print('configuracion total: ',mired.ifconfig())
 html='''<!DOCTYPE html>
 <html>
 <head><title> PRUEBA DE DESARROLLO INICIAL </title></head>
-<center><h2>  Webserver para encender un pinche led  on</h2></center>
+<center><h2>  Webserver para encender un led  on</h2></center>
 <form>
 <button name ="LED" value='ON' type='submit'> LED ON </button>
 <button name="LEDb" value='OFF' type='submit'> LED OFF</button>
