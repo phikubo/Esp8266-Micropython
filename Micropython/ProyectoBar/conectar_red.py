@@ -15,7 +15,7 @@ def main():
     if not sta_if.isconnected():
         print('Conectando a la red...')
         sta_if.active(True)
-        sta_if.connect('907793758213','p123581321')
+        sta_if.connect('<nombre_de_red>','<contraseña_de_red>')
         while not sta_if.isconnected() and veces!=4:
             print('Intento: ', veces)
             veces=veces+1
