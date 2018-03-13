@@ -1,4 +1,8 @@
-
+#a este modulo se le llama desde otro script asi:
+#<nombre_de_este_archivo>.conectar()
+#o
+##<nombre_de_este_archivo>.main() 
+##segun convenga.
 def conectar():
     import network
     import time
@@ -28,3 +32,8 @@ def conectar():
         print('Ya te has conectado!')
         print('Conectado a: ', sta_if.ifconfig())
         veces=0
+        
+if __name__ == '__main__':
+    conectar()
+else:
+    print('Modulo importado')
