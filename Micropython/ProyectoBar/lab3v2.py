@@ -27,7 +27,7 @@ def interrupt(p):
     intCuenta+=1
     print("irq counter",intCuenta)
     #time.sleep(1)
-    response = urequests.get('http://192.168.1.18:8000/GestionAc/pedirPin/')
+    response = urequests.get('http://192.168.xx.xx:x000/Direccion_de_tu_servidor_para_solicitudes_get/')
     parsed=response.json()
     parsed_str=str(parsed["id"]) #valorPin
     imprimir(parsed_str)
@@ -118,7 +118,7 @@ estadoInternet=sta_if.isconnected()
 print(estadoInternet)
 if estadoInternet==False:
     try:
-        conectar_red.Connect("907793758213","p123581321")
+        conectar_red.Connect("nombre_de_la_red","clave")
         estadoInternet=sta_if.isconnected()
     except Exception as k:
         print(k)
