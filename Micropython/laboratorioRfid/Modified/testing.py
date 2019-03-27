@@ -37,6 +37,7 @@ def iniciar_comunicacion(api_url, mac):
     de un acompa帽ante. Cuando es le铆da se termina la ejecuci贸n d lectura.'''
     print("comunicandose con el servidor...")
     payload = '{"data":{"type":"attendants","attributes":{"gate":"%s"}}}'%mac
+    payload_emp = '{"data":{"type":"schedules","attributes":{"employee_id":"%s"}}}'%id_emp
     headers = {'content-type': 'application/vnd.api+json'}
     ########################3responsep= urequests.post(api_url, data=payload,headers=headers)
     #print(responsep.text)
@@ -92,6 +93,7 @@ if __name__ == "__main__":
     print("Local. Exmachina says: Bienvenido!")
     #time.sleep(3)
     url ="http://mediadmin.herokuapp.com/api/v1/attendants"
+    api_url ="http://mediadmin.herokuapp.com/api/v1/schedules/verify"
     #conectar_red
     tarjeta_on = False
     contador_test=0
@@ -104,7 +106,11 @@ if __name__ == "__main__":
         
         #5 simula que la tarjeta ha sido leida
         if contador_test ==5:
-            ok, mac=interfaz_lectura()
+            try:
+                time.sleep(3)
+                ok, mac=interfaz_lectura()
+            except Exception as e:
+                print(e)
             if ok==1:
                 print("Iniciando Post")
                 id_registro=iniciar_comunicacion(url, mac)
@@ -119,18 +125,6 @@ if __name__ == "__main__":
                 zona_id = preguntar_informacion(url, id_registro)
             tarjeta_on = True
             interfaz_escritura(zona_id)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

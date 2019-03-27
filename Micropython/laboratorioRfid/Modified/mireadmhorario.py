@@ -1,12 +1,17 @@
 import mfrc522
 from os import uname
 import machine
+import time
+import urequests
 #sck, mosi, miso, rst, cs
 #14, 13,12,5, 15
 #rdr = mfrc522.MFRC522(0, 2, 4, 5, 14)
 
 def do_read(banco_memoria, pin):
-
+	tipo=9
+	url_post_s="http://mediadmin.herokuapp.com/api/v1/schedules/verify"
+	headers = {'content-type': 'application/vnd.api+json'}
+	
 	if uname()[0] == 'WiPy':
 		rdr = mfrc522.MFRC522("GP14", "GP16", "GP15", "GP22", "GP17")
 	elif uname()[0] == 'esp8266':
@@ -48,43 +53,56 @@ def do_read(banco_memoria, pin):
 								print("tarjeta vacia", mac)
 								return data[0], mac
 								break
-							else:
+							elif data[0]==1:
 								
-								return data[0], data[1], data[2],data[3], data[4]
-
+								tipol=data[1]
+								id_empleado=data[2]
+								if tipo == tipol:
+									payload = '{"data":{"type":"schedules","attributes":{"employee_id":"%s"}}}'%37
+									responsep2= urequests.post(url_post_s, data=payload,headers=headers)
+									return 1, data[3]
+								else:
+									return 0, data[3]
+							print(4)
 							rdr.stop_crypto1()
-
 							
 						else:
 							print("Authentication error")
 					else:
 						print("Failed to select tag")
-			#print(1)
-				#print(2)
-					#print(3)
 		print("Ejecucion terminada")
 		pin.value(0)
 	except KeyboardInterrupt:
 		print("Bye")
-	#sreturn data
-		#return 1, tag_type
-	
-	#return data, tag_type
+
 
 if __name__ == "__main__":
 	print("inicio")
 	banco_memoria=[8, 9, 10]
 	pin = machine.Pin(0, machine.Pin.OUT)
-  	test=do_read(banco_memoria, pin)
-  	#print(type(test))
-	if test[0]==1:
-		print("tarjeta llena")
-		pin.value(0)
+	test=do_read(banco_memoria, pin)
+	pin = machine.Pin(0, machine.Pin.OUT)
+	#url_post_s="http://mediadmin.herokuapp.com/api/v1/schedules/verify"
+	print(test, type(test[0]))
+	if test[0]==0:
+		print(0)
+		pin.value(1)
 	else:
-		print("tarjeta vacia x2")
+		print(1)
+		pin.value(0)
+		#url_post_s="http://mediadmin.herokuapp.com/api/v1/schedules/verify"
+
+
+
+	time.sleep(4)
+	pin.value(0)
+	#	print("tarjeta vacia")
+	#	pin.value(0)
 	#print("exito: ", do_read(banco_memoria, pin))
 else:
 	print("Modulo lectura")
+
+
 
 
 
