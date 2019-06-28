@@ -1,6 +1,4 @@
 import network
-#implemented by Phikubo
-
 #mired.config(essid="Red_de_prueba_phi")
 #mired.config(essid="<AP_NAME>", authmode=network.AUTH_WPA_WPA2_PSK, password="<password>")
 #mired.active(True)
