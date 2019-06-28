@@ -1,4 +1,4 @@
-import network
+
 #implemented by Phikubo
 
 #mired.config(essid="Red_de_prueba_phi")
@@ -9,6 +9,7 @@ import network
 
 
 def create_net(ap_name,passw):
+    import network
     mired=network.WLAN(network.AP_IF)
     mired.config(essid=ap_name, authmode=network.AUTH_WPA_WPA2_PSK, password=passw)
     mired.active(True)
