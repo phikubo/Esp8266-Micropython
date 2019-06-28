@@ -19,6 +19,6 @@ if __name__ == "__main__":
     #mired=network.WLAN(network.AP_IF)
     ap_name="upylab2sistel"
     passw=123456789
-    create_net()
+    create_net(ap_name,passw)
 else:
     print("networking importado")
